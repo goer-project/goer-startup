@@ -61,6 +61,8 @@ require (
 	github.com/prometheus/procfs v0.6.0 // indirect
 	github.com/rivo/uniseg v0.4.2 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
+	github.com/sony/sonyflake v1.0.0 // indirect
+	github.com/speps/go-hashids v2.0.0+incompatible // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
