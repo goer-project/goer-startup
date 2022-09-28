@@ -1,8 +1,9 @@
 package main
 
 import (
-	"goer-startup/internal/goerctl/cmd"
 	"os"
+
+	"goer-startup/internal/goerctl/cmd"
 )
 
 func main() {
