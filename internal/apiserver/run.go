@@ -1,6 +1,6 @@
 package apiserver
 
-import "goer-startup/internal/goer-apiserver/config"
+import "goer-startup/internal/apiserver/config"
 
 // Run runs the specified APIServer. This should never exit.
 func Run(cfg *config.Config) error {

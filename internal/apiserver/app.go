@@ -4,8 +4,8 @@ package apiserver
 import (
 	"github.com/marmotedu/iam/pkg/log"
 
-	"goer-startup/internal/goer-apiserver/config"
-	"goer-startup/internal/goer-apiserver/options"
+	"goer-startup/internal/apiserver/config"
+	"goer-startup/internal/apiserver/options"
 	"goer-startup/pkg/app"
 )
 

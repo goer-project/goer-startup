@@ -1,6 +1,6 @@
 package config
 
-import "goer-startup/internal/goer-apiserver/options"
+import "goer-startup/internal/apiserver/options"
 
 // Config is the running configuration structure of the IAM pump service.
 type Config struct {

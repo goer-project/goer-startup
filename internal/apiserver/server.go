@@ -12,9 +12,9 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
 
-	"goer-startup/internal/goer-apiserver/config"
-	"goer-startup/internal/goer-apiserver/store"
-	"goer-startup/internal/goer-apiserver/store/mysql"
+	"goer-startup/internal/apiserver/config"
+	"goer-startup/internal/apiserver/store"
+	"goer-startup/internal/apiserver/store/mysql"
 	genericoptions "goer-startup/internal/pkg/options"
 	genericapiserver "goer-startup/internal/pkg/server"
 )

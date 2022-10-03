@@ -7,7 +7,7 @@ import (
 	"github.com/marmotedu/errors"
 	"gorm.io/gorm"
 
-	"goer-startup/internal/goer-apiserver/store"
+	"goer-startup/internal/apiserver/store"
 	"goer-startup/internal/pkg/logger"
 	genericoptions "goer-startup/internal/pkg/options"
 	"goer-startup/pkg/db"
