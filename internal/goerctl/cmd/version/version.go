@@ -41,14 +41,18 @@ func NewCmdVersion(ioStreams genericclioptions.IOStreams) *cobra.Command {
 		Short: "Print the client and server version information",
 		Long:  "Print the client and server version information for the current context",
 		Run: func(cmd *cobra.Command, args []string) {
-
 			cmdutil.CheckErr(o.Complete(cmd, args))
 			cmdutil.CheckErr(o.Validate(cmd, args))
 			cmdutil.CheckErr(o.Run(args))
 		},
 	}
 
-	cmd.Flags().BoolVar(&o.ClientOnly, "client", o.ClientOnly, "If true, shows client version only (no server required).")
+	cmd.Flags().BoolVar(
+		&o.ClientOnly,
+		"client",
+		o.ClientOnly,
+		"If true, shows client version only (no server required).",
+	)
 	cmd.Flags().BoolVar(&o.Short, "short", o.Short, "If true, print just the version number.")
 	cmd.Flags().StringVarP(&o.Output, "output", "o", o.Output, "One of 'yaml' or 'json'.")
 

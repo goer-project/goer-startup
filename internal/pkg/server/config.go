@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	// RecommendedName defines the default project name
+	// RecommendedName defines the default project name.
 	RecommendedName = "goer"
 )
 

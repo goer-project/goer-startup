@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"time"
 
-	apiserver "goer-startup/internal/apiserver"
+	"goer-startup/internal/apiserver"
 )
 
 func main() {

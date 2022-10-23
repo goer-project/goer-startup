@@ -41,7 +41,10 @@ func (info Info) String() string {
 
 // ToJSON returns the JSON string of version information.
 func (info Info) ToJSON() string {
-	s, _ := json.Marshal(info)
+	s, err := json.Marshal(info)
+	if err != nil {
+		return ""
+	}
 
 	return string(s)
 }
