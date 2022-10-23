@@ -49,3 +49,7 @@ else
 	GOARCH := $(word 2, $(subst _, ,$(PLATFORM)))
 	IMAGE_PLAT := $(PLATFORM)
 endif
+
+# Linux command settings
+FIND := find . ! -path './third_party/*' ! -path './vendor/*'
+XARGS := xargs -r

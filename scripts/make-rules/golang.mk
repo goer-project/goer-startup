@@ -67,3 +67,8 @@ go.build.multiarch: go.build.verify $(foreach p,$(PLATFORMS),$(addprefix go.buil
 go.clean:
 	@echo "===========> Cleaning all build output"
 	@-rm -vrf $(OUTPUT_DIR)
+
+.PHONY: go.lint
+go.lint: tools.verify.golangci-lint
+	@echo "===========> Run golangci to lint source codes"
+	@golangci-lint run -c $(ROOT_DIR)/.golangci.yaml $(ROOT_DIR)/...
