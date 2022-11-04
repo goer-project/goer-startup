@@ -175,6 +175,9 @@ linters-settings:
     # Exclude godoc examples from forbidigo checks.  Default is true.
     exclude_godoc_examples: false
   funlen:
+    # Checks the number of lines in a function.
+    # If lower than 0, disable the check.
+    # Default: 60
     lines: 150
     statements: 50
   gci:
@@ -378,12 +381,16 @@ linters-settings:
     exclude-forbidden: false
   gomodguard:
     allowed:
-      modules: # List of allowed modules
+      # List of allowed modules.
+      # Default: []
+      modules:
         - gorm.io/gorm
         - gorm.io/driver/mysql
         - k8s.io/klog
         # - gopkg.in/yaml.v2
-      domains: # List of allowed module domains
+      # List of allowed module domains.
+      # Default: []
+      domains:
         - google.golang.org
         - gopkg.in
         - golang.org
@@ -391,16 +398,18 @@ linters-settings:
         - go.uber.org
         - go.etcd.io
     blocked:
-      modules:
-        - github.com/pkg/errors:
-            recommendations:
-              - github.com/marmotedu/errors
-            reason: "`github.com/marmotedu/errors` is the log package used by marmotedu projects."
+      # List of blocked modules.
+      # Default: []
+      # modules:
+      # List of blocked module version constraints.
+      # Default: []
       versions:
         - github.com/MakeNowJust/heredoc:
             version: "> 2.0.9"
             reason: "use the latest version"
-      local_replace_directives: false     # Set to true to raise lint issues for packages that are loaded from a local path via replace directive
+      # Set to true to raise lint issues for packages that are loaded from a local path via replace directive.
+      # Default: false
+      local_replace_directives: false
 
   gosec:
     # To select a subset of rules to run.
@@ -550,15 +559,17 @@ linters-settings:
     block-size: 1
 
   nolintlint:
-    # Disable to ensure that all nolint directives actually have an effect. Default is true.
+    # Disable to ensure that all nolint directives actually have an effect.
+    # Default: false
     allow-unused: false
-    # Disable to ensure that nolint directives don't have a leading space. Default is true.
-    allow-leading-space: true
-    # Exclude following linters from requiring an explanation.  Default is [].
-    allow-no-explanation: [ ]
-    # Enable to require an explanation of nonzero length after each nolint directive. Default is false.
+    # Exclude following linters from requiring an explanation.
+    # Default: []
+    allow-no-explanation: []
+    # Enable to require an explanation of nonzero length after each nolint directive.
+    # Default: false
     require-explanation: false
-    # Enable to require nolint directives to mention the specific linter being suppressed. Default is false.
+    # Enable to require nolint directives to mention the specific linter being suppressed.
+    # Default: false
     require-specific: true
 
   prealloc:
