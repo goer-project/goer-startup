@@ -18,6 +18,8 @@ require (
 	github.com/marmotedu/iam v1.7.0
 	github.com/marmotedu/log v0.0.1
 	github.com/mattn/go-isatty v0.0.16
+	github.com/mitchellh/go-wordwrap v1.0.1
+	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6
 	github.com/russross/blackfriday v1.6.0
 	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
 	github.com/spf13/cobra v1.5.0
@@ -58,7 +60,6 @@ require (
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369 // indirect
 	github.com/mitchellh/mapstructure v1.4.2 // indirect
-	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect

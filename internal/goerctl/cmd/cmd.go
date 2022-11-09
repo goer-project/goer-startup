@@ -9,6 +9,7 @@ import (
 
 	"goer-startup/internal/goerctl/cmd/new"
 	"goer-startup/internal/goerctl/cmd/version"
+	"goer-startup/internal/goerctl/util/templates"
 	genericapiserver "goer-startup/internal/pkg/server"
 	"goer-startup/pkg/cli/genericclioptions"
 )
@@ -18,7 +19,7 @@ func NewDefaultGoerCtlCommand() *cobra.Command {
 }
 
 func NewGoerCtlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
-	var cmd = &cobra.Command{
+	var cmds = &cobra.Command{
 		Use:   "goerctl",
 		Short: "goerctl is the goer startup client",
 		Long:  `goerctl is the client side tool for Goer startup.`,
@@ -30,11 +31,29 @@ func NewGoerCtlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 
 	ioStreams := genericclioptions.IOStreams{In: in, Out: out, ErrOut: err}
 
-	// Add commands
-	cmd.AddCommand(new.NewCmdNew(ioStreams))
-	cmd.AddCommand(version.NewCmdVersion(ioStreams))
+	groups := templates.CommandGroups{
+		{
+			Message: "Basic Commands:",
+			Commands: []*cobra.Command{
+				new.NewCmdNew(ioStreams),
+			},
+		},
+		{
+			Message:  "Advanced Commands:",
+			Commands: []*cobra.Command{
+				//
+			},
+		},
+	}
+	groups.Add(cmds)
 
-	return cmd
+	filters := []string{""}
+	templates.ActsAsRootCommand(cmds, filters, groups...)
+
+	// Add commands
+	cmds.AddCommand(version.NewCmdVersion(ioStreams))
+
+	return cmds
 }
 
 // initConfig reads in config file and ENV variables if set.
