@@ -5,8 +5,9 @@ import (
 	"errors"
 	"fmt"
 
+	"goer-startup/pkg/version"
+
 	"github.com/ghodss/yaml"
-	"github.com/marmotedu/component-base/pkg/version"
 	"github.com/spf13/cobra"
 
 	cmdutil "goer-startup/internal/goerctl/cmd/util"

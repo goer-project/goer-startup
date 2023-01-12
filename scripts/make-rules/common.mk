@@ -24,11 +24,36 @@ TMP_DIR := $(OUTPUT_DIR)/tmp
 $(shell mkdir -p $(TMP_DIR))
 endif
 
+# 定义包名
+ROOT_PACKAGE=goer-startup
+
+# Protobuf 文件存放路径
+APIROOT=$(ROOT_DIR)/pkg/proto
+
+# ==============================================================================
+# 定义版本相关变量
+
+## 指定应用使用的 version 包，会通过 `-ldflags -X` 向该包中指定的变量注入值
+VERSION_PACKAGE=$(ROOT_PACKAGE)/pkg/version
+
 # set the version number. you should not need to do this
 # for the majority of scenarios.
 ifeq ($(origin VERSION), undefined)
 VERSION := $(shell git describe --tags --always --match='v*')
 endif
+
+## 检查代码仓库是否是 dirty（默认dirty）
+GIT_TREE_STATE:="dirty"
+ifeq (, $(shell git status --porcelain 2>/dev/null))
+	GIT_TREE_STATE="clean"
+endif
+GIT_COMMIT:=$(shell git rev-parse HEAD)
+
+GO_LDFLAGS += \
+	-X $(VERSION_PACKAGE).GitVersion=$(VERSION) \
+	-X $(VERSION_PACKAGE).GitCommit=$(GIT_COMMIT) \
+	-X $(VERSION_PACKAGE).GitTreeState=$(GIT_TREE_STATE) \
+	-X $(VERSION_PACKAGE).BuildDate=$(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 
 # The OS can be linux/darwin/windows when building binaries
 PLATFORMS ?= linux_amd64 linux_arm64 darwin_amd64 darwin_arm64 windows_amd64

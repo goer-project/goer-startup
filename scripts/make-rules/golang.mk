@@ -3,16 +3,9 @@
 #
 
 GO := go
-GO_SUPPORTED_VERSIONS ?= 1.13|1.14|1.15|1.16|1.17|1.18|1.19|1.20
 
-# Build flags
-GO_LDFLAGS += -X $(VERSION_PACKAGE).GitVersion=$(VERSION) \
-	-X $(VERSION_PACKAGE).GitCommit=$(GIT_COMMIT) \
-	-X $(VERSION_PACKAGE).GitTreeState=$(GIT_TREE_STATE) \
-	-X $(VERSION_PACKAGE).BuildDate=$(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 GO_BUILD_FLAGS += -ldflags "$(GO_LDFLAGS)"
 
-# Binary Suffix
 ifeq ($(GOOS),windows)
 	GO_OUT_EXT := .exe
 endif
@@ -21,31 +14,24 @@ ifeq ($(ROOT_PACKAGE),)
 	$(error the variable ROOT_PACKAGE must be set prior to including golang.mk)
 endif
 
-# Go path
 GOPATH := $(shell go env GOPATH)
 ifeq ($(origin GOBIN), undefined)
 	GOBIN := $(GOPATH)/bin
 endif
 
-# Build Binaries
-COMMANDS ?= $(filter-out %.md, $(wildcard ${ROOT_DIR}/cmd/*))
-BINS ?= $(foreach cmd,${COMMANDS},$(notdir ${cmd}))
+COMMANDS ?= $(filter-out %.md, $(wildcard $(ROOT_DIR)/cmd/*))
+BINS ?= $(foreach cmd,$(COMMANDS),$(notdir $(cmd)))
 
-ifeq (${COMMANDS},)
+ifeq ($(COMMANDS),)
   $(error Could not determine COMMANDS, set ROOT_DIR or run in source dir)
 endif
-ifeq (${BINS},)
+ifeq ($(BINS),)
   $(error Could not determine BINS, set ROOT_DIR or run in source dir)
 endif
 
-# ==============================================================================
-# Targets
-
 .PHONY: go.build.verify
 go.build.verify:
-ifneq ($(shell $(GO) version | grep -q -E '\bgo($(GO_SUPPORTED_VERSIONS))\b' && echo 0 || echo 1), 0)
-	$(error unsupported go version. Please make install one of the following supported version: '$(GO_SUPPORTED_VERSIONS)')
-endif
+	@if ! which go &>/dev/null; then echo "Cannot found go compile tool. Please install go tool first."; exit 1; fi
 
 .PHONY: go.build.%
 go.build.%:
@@ -60,13 +46,27 @@ go.build.%:
 .PHONY: go.build
 go.build: go.build.verify $(addprefix go.build., $(addprefix $(PLATFORM)., $(BINS)))
 
-.PHONY: go.build.multiarch
-go.build.multiarch: go.build.verify $(foreach p,$(PLATFORMS),$(addprefix go.build., $(addprefix $(p)., $(BINS))))
+.PHONY: go.format
+go.format: tools.verify.goimports ## 格式化 Go 源码.
+	@$(FIND) -type f -name '*.go' | $(XARGS) gofmt -s -w
+	@$(FIND) -type f -name '*.go' | $(XARGS) goimports -w -local $(ROOT_PACKAGE)
+	@$(GO) mod edit -fmt
 
-.PHONY: go.clean
-go.clean:
-	@echo "===========> Cleaning all build output"
-	@-rm -vrf $(OUTPUT_DIR)
+.PHONY: go.tidy
+go.tidy: ## 自动添加/移除依赖包.
+	@$(GO) mod tidy
+
+.PHONY: go.test
+go.test: ## 执行单元测试.
+	@echo "===========> Run unit test"
+	@mkdir -p $(OUTPUT_DIR)
+	@set -o pipefail;$(GO) test -race -cover -coverprofile=$(OUTPUT_DIR)/coverage.out -timeout=10m -shuffle=on -short -v `go list ./...`
+	@sed -i '/mock_.*.go/d' $(OUTPUT_DIR)/coverage.out # 从 coverage 中删除mock_.*.go 文件
+	@sed -i '/internal\/apiserver\/store\/.*.go/d' $(OUTPUT_DIR)/coverage.out # internal/miniblog/store/ 下的 Go 代码不参与覆盖率计算（这部分测试用例稍后补上）
+
+.PHONY: go.cover
+go.cover: go.test ## 执行单元测试，并校验覆盖率阈值.
+	@$(GO) tool cover -func=$(OUTPUT_DIR)/coverage.out | awk -v target=$(COVERAGE) -f $(ROOT_DIR)/scripts/coverage.awk
 
 .PHONY: go.lint
 go.lint: tools.verify.golangci-lint
