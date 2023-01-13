@@ -11,6 +11,7 @@ require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-contrib/pprof v1.3.0
 	github.com/gin-gonic/gin v1.8.1
+	github.com/google/uuid v1.1.2
 	github.com/gosuri/uitable v0.0.4
 	github.com/jinzhu/now v1.1.3
 	github.com/marmotedu/component-base v1.6.2
@@ -21,7 +22,6 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6
 	github.com/russross/blackfriday v1.6.0
-	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.9.0
@@ -70,6 +70,7 @@ require (
 	github.com/prometheus/common v0.26.0 // indirect
 	github.com/prometheus/procfs v0.6.0 // indirect
 	github.com/rivo/uniseg v0.4.2 // indirect
+	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/sony/sonyflake v1.0.0 // indirect
 	github.com/speps/go-hashids v2.0.0+incompatible // indirect
