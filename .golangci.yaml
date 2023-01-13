@@ -1,3 +1,6 @@
+# This file contains all available configuration options
+# with their default values.
+
 # options for analysis running
 run:
   # The default concurrency value is the number of available CPU.
@@ -789,7 +792,7 @@ linters:
     # - nilerr
     - nlreturn
     # - noctx
-    - nolintlint
+    # - nolintlint
     - paralleltest
     - prealloc
     - predeclared
@@ -837,51 +840,6 @@ issues:
 
   # Excluding configuration per-path, per-linter, per-text and per-source
   exclude-rules:
-    - linters:
-        - errorlint
-      path: (pkg/validator/.*)\.go
-    - linters:
-        - revive
-      path: (log/.*)\.go
-
-    - linters:
-        - wrapcheck
-      path: (cmd/.*|pkg/.*)\.go
-
-    - linters:
-        - typecheck
-        #path: (pkg/storage/.*)\.go
-      path: (internal/.*|pkg/.*)\.go
-
-    - path: (cmd/.*|test/.*|tools/.*)\.go
-      linters:
-        - forbidigo
-
-    - path: (cmd/[a-z]*/.*|store/.*)\.go
-      linters:
-        - dupl
-
-    - linters:
-        - gocritic
-      text: (hugeParam:|rangeValCopy:)
-
-    - path: (cmd/[a-z]*/.*)\.go
-      linters:
-        - lll
-
-    - path: (validator/.*|code/.*|validator/.*|watcher/watcher/.*)
-      linters:
-        - gochecknoinits
-
-    - path: (internal/.*/options|internal/pump|pkg/log/options.go|internal/authzserver|tools/)
-      linters:
-        - tagliatelle
-
-    - path: (pkg/app/.*)\.go
-      linters:
-        - unused
-        - forbidigo
-
     # Exclude some staticcheck messages
     - linters:
         - staticcheck
