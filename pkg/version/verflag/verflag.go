@@ -9,7 +9,7 @@ import (
 
 	flag "github.com/spf13/pflag"
 
-	"github.com/marmotedu/component-base/pkg/version"
+	"goer-startup/pkg/version"
 )
 
 type versionValue int

@@ -8,12 +8,13 @@ import (
 	cliflag "github.com/marmotedu/component-base/pkg/cli/flag"
 	"github.com/marmotedu/component-base/pkg/cli/globalflag"
 	"github.com/marmotedu/component-base/pkg/term"
-	"github.com/marmotedu/component-base/pkg/version"
-	"github.com/marmotedu/component-base/pkg/version/verflag"
 	"github.com/marmotedu/errors"
 	"github.com/marmotedu/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"goer-startup/pkg/version"
+	"goer-startup/pkg/version/verflag"
 )
 
 var (
