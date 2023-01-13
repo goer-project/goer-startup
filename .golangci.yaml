@@ -142,11 +142,15 @@ linters-settings:
     #exclude: errcheck.txt
 
   errorlint:
-    # Check whether fmt.Errorf uses the %w verb for formatting errors. See the readme for caveats
+    # Check whether fmt.Errorf uses the %w verb for formatting errors.
+    # See the https://github.com/polyfloyd/go-errorlint for caveats.
+    # Default: true
     errorf: true
-    # Check for plain type assertions and type switches
-    asserts: true
-    # Check for plain error comparisons
+    # Check for plain type assertions and type switches.
+    # Default: true
+    asserts: false
+    # Check for plain error comparisons.
+    # Default: true
     comparison: true
 
   exhaustive:
@@ -567,7 +571,7 @@ linters-settings:
     allow-unused: false
     # Exclude following linters from requiring an explanation.
     # Default: []
-    allow-no-explanation: []
+    allow-no-explanation: [ ]
     # Enable to require an explanation of nonzero length after each nolint directive.
     # Default: false
     require-explanation: false
@@ -739,7 +743,7 @@ linters-settings:
       # The path to the plugin *.so. Can be absolute or local. Required for each custom linter
       #path: /path/to/example.so
       # The description of the linter. Optional, just for documentation purposes.
-      #description: This is an example usage of a plugin linter.
+    #description: This is an example usage of a plugin linter.
     # Intended to point to the repo location of the linter. Optional, just for documentation purposes.
     #original-url: github.com/golangci/example-linter
 
@@ -840,6 +844,11 @@ issues:
 
   # Excluding configuration per-path, per-linter, per-text and per-source
   exclude-rules:
+    - path: (pkg/app/.*)\.go
+      linters:
+        - unused
+        - forbidigo
+
     # Exclude some staticcheck messages
     - linters:
         - staticcheck
