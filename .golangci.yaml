@@ -378,9 +378,6 @@ linters-settings:
     # List of allowed `replace` directives. Default is empty.
     replace-allow-list:
       - google.golang.org/grpc
-      - github.com/marmotedu/api
-      - github.com/marmotedu/component-base
-      - github.com/marmotedu/marmotedu-sdk-go
 
     # Allow to not explain why the version has been retracted in the `retract` directives. Default is false.
     retract-allow-no-explanation: false
@@ -501,8 +498,6 @@ linters-settings:
         alias: $1$2
     # using `jwt` alias for `github.com/appleboy/gin-jwt/v2` package
     jwt: github.com/appleboy/gin-jwt/v2
-    # using `metav1` alias for `github.com/marmotedu/component-base/pkg/meta/v1` package
-    metav1: github.com/marmotedu/component-base/pkg/meta/v1
 
   ireturn:
     # ireturn allows using `allow` and `reject` settings at the same time.
