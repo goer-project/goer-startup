@@ -9,8 +9,8 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-// Options defines optsions for mysql database.
-type Options struct {
+// MySQLOptions defines options for mysql database.
+type MySQLOptions struct {
 	Host                  string
 	Username              string
 	Password              string
@@ -19,21 +19,29 @@ type Options struct {
 	MaxOpenConnections    int
 	MaxConnectionLifeTime time.Duration
 	LogLevel              int
-	Logger                logger.Interface
+	// Logger                logger.Interface
 }
 
-// New create a new gorm db instance with the given options.
-func New(opts *Options) (*gorm.DB, error) {
-	dsn := fmt.Sprintf(`%s:%s@tcp(%s)/%s?charset=utf8&parseTime=%t&loc=%s`,
-		opts.Username,
-		opts.Password,
-		opts.Host,
-		opts.Database,
+// DSN returns mysql dsn.
+func (o *MySQLOptions) DSN() string {
+	return fmt.Sprintf(`%s:%s@tcp(%s)/%s?charset=utf8&parseTime=%t&loc=%s`,
+		o.Username,
+		o.Password,
+		o.Host,
+		o.Database,
 		true,
-		"Local")
+		"Local",
+	)
+}
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-		Logger: opts.Logger,
+// NewMySQL create a new gorm db instance with the given options.
+func NewMySQL(opts *MySQLOptions) (*gorm.DB, error) {
+	logLevel := logger.Silent
+	if opts.LogLevel != 0 {
+		logLevel = logger.LogLevel(opts.LogLevel)
+	}
+	db, err := gorm.Open(mysql.Open(opts.DSN()), &gorm.Config{
+		Logger: logger.Default.LogMode(logLevel),
 	})
 	if err != nil {
 		return nil, err

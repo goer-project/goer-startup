@@ -3,31 +3,31 @@ package apiserver
 import (
 	"net"
 
-	"github.com/marmotedu/iam/pkg/log"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
+
+	"goer-startup/internal/pkg/log"
 )
 
-type grpcAPIServer struct {
-	*grpc.Server
-	address string
-}
-
-func (s *grpcAPIServer) Run() {
-	listen, err := net.Listen("tcp", s.address)
+// startGRPCServer 创建并运行 GRPC 服务器.
+func startGRPCServer() *grpc.Server {
+	lis, err := net.Listen("tcp", viper.GetString("grpc.addr"))
 	if err != nil {
-		log.Fatalf("failed to listen: %s", err.Error())
+		log.Fatalw("Failed to listen", "err", err)
 	}
 
+	// 创建 GRPC Server 实例
+	grpcSrv := grpc.NewServer()
+	// pb.RegisterServer(grpcsrv, user.New(store.S, nil))
+
+	// 运行 GRPC 服务器。在 goroutine 中启动服务器，它不会阻止下面的正常关闭处理流程
+	// 打印一条日志，用来提示 GRPC 服务已经起来，方便排障
+	log.Infow("Start to listening the incoming requests on grpc address", "addr", viper.GetString("grpc.addr"))
 	go func() {
-		if err := s.Serve(listen); err != nil {
-			log.Fatalf("failed to start grpc server: %s", err.Error())
+		if err := grpcSrv.Serve(lis); err != nil {
+			log.Fatalw(err.Error())
 		}
 	}()
 
-	log.Infof("start grpc server at %s", s.address)
-}
-
-func (s *grpcAPIServer) Close() {
-	s.GracefulStop()
-	log.Infof("GRPC server on %s stopped", s.address)
+	return grpcSrv
 }

@@ -2,12 +2,13 @@
 package version
 
 import (
+	"encoding/json"
 	"fmt"
 	"runtime"
 
 	"github.com/gosuri/uitable"
 
-	"github.com/marmotedu/component-base/pkg/json"
+	"goer-startup/internal/pkg/log"
 )
 
 var (
@@ -43,7 +44,10 @@ func (info Info) String() string {
 
 // ToJSON returns the JSON string of version information.
 func (info Info) ToJSON() string {
-	s, _ := json.Marshal(info)
+	s, err := json.Marshal(info)
+	if err != nil {
+		log.Errorw(err.Error())
+	}
 
 	return string(s)
 }

@@ -1,14 +1,14 @@
 package main
 
 import (
-	"math/rand"
-	"time"
+	"os"
 
 	"goer-startup/internal/apiserver"
 )
 
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
-
-	apiserver.NewApp("goer-apiserver").Run()
+	command := apiserver.NewAppCommand()
+	if err := command.Execute(); err != nil {
+		os.Exit(1)
+	}
 }

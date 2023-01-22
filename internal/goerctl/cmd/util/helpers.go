@@ -8,8 +8,9 @@ import (
 	"strings"
 
 	"github.com/marmotedu/errors"
-	"github.com/marmotedu/log"
 	"github.com/spf13/cobra"
+
+	"goer-startup/internal/pkg/log"
 )
 
 const (
@@ -87,10 +88,10 @@ func checkErr(err error, handleErr func(string, int)) {
 // commands.
 func StandardErrorMessage(err error) (string, bool) {
 	if debugErr, ok := err.(debugError); ok {
-		log.Infof(debugErr.DebugError())
+		log.Infow(debugErr.DebugError())
 	}
 	if t, ok := err.(*url.Error); ok {
-		log.Infof("Connection error: %s %s: %v", t.Op, t.URL, t.Err)
+		log.Infow("Connection error: %s %s: %v", t.Op, t.URL, t.Err)
 		if strings.Contains(t.Err.Error(), "connection refused") {
 			host := t.URL
 			if server, err := url.Parse(t.URL); err == nil {

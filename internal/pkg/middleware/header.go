@@ -5,11 +5,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	gindump "github.com/tpkeeper/gin-dump"
 )
-
-// Middlewares store registered middlewares.
-var Middlewares = defaultMiddlewares()
 
 // NoCache is a middleware function that appends headers
 // to prevent the client from caching the HTTP response.
@@ -20,10 +16,8 @@ func NoCache(c *gin.Context) {
 	c.Next()
 }
 
-// Options is a middleware function that appends headers
-// for options requests and aborts then exits the middleware
-// chain and ends the request.
-func Options(c *gin.Context) {
+// Cors add cors headers.
+func Cors(c *gin.Context) {
 	if c.Request.Method != "OPTIONS" {
 		c.Next()
 	} else {
@@ -46,18 +40,5 @@ func Secure(c *gin.Context) {
 
 	if c.Request.TLS != nil {
 		c.Header("Strict-Transport-Security", "max-age=31536000")
-	}
-}
-
-func defaultMiddlewares() map[string]gin.HandlerFunc {
-	return map[string]gin.HandlerFunc{
-		"recovery":  gin.Recovery(),
-		"secure":    Secure,
-		"options":   Options,
-		"nocache":   NoCache,
-		"cors":      Cors(),
-		"requestid": RequestID(),
-		"logger":    Logger(),
-		"dump":      gindump.Dump(),
 	}
 }
