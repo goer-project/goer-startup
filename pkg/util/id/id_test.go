@@ -1,8 +1,3 @@
-// Copyright 2022 Innkeeper Belm(孔令飞) <nosbelm@qq.com>. All rights reserved.
-// Use of this source code is governed by a MIT style
-// license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/marmotedu/miniblog.
-
 package id
 
 import (
@@ -24,14 +19,14 @@ func BenchmarkGenShortID(b *testing.B) {
 }
 
 func BenchmarkGenShortIDTimeConsuming(b *testing.B) {
-	b.StopTimer() //调用该函数停止压力测试的时间计数
+	b.StopTimer() // 调用该函数停止压力测试的时间计数
 
 	shortId := GenShortID()
 	if shortId == "" {
 		b.Error("Failed to generate short id")
 	}
 
-	b.StartTimer() //重新开始时间
+	b.StartTimer() // 重新开始时间
 
 	for i := 0; i < b.N; i++ {
 		GenShortID()
