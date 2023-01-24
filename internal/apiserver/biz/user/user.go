@@ -133,10 +133,10 @@ func (b *userBiz) List(ctx context.Context, offset, limit int) (*v1.ListUserResp
 
 	users := make([]*v1.UserInfo, 0, len(list))
 	for _, item := range list {
-		var resp v1.UserInfo
-		_ = copier.Copy(&resp, item)
+		var user v1.UserInfo
+		_ = copier.Copy(&user, item)
 
-		users = append(users, &resp)
+		users = append(users, &user)
 	}
 
 	log.C(ctx).Debugw("Get users from backend storage", "count", len(users))

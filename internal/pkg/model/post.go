@@ -10,14 +10,13 @@ import (
 
 // PostM 是数据库中 post 记录 struct 格式的映射.
 type PostM struct {
-	gorm.Model
 	ID        int64     `gorm:"column:id;primary_key"`
 	Username  string    `gorm:"column:username;not null"`
-	PostID    string    `gorm:"column:postID;not null"`
+	PostID    string    `gorm:"column:post_id;not null"`
 	Title     string    `gorm:"column:title;not null"`
 	Content   string    `gorm:"column:content"`
 	CreatedAt time.Time `gorm:"column:created_at"`
-	UpdatedAt time.Time `gorm:"column:updated_aAt"`
+	UpdatedAt time.Time `gorm:"column:updated_at"`
 }
 
 // TableName 用来指定映射的 MySQL 表名.
