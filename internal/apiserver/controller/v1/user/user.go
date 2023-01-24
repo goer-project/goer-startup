@@ -11,6 +11,7 @@ import (
 	"goer-startup/internal/pkg/log"
 	v1 "goer-startup/pkg/api/goer/v1"
 	"goer-startup/pkg/auth"
+	pb "goer-startup/pkg/proto/goer/v1"
 )
 
 const defaultMethods = "(GET)|(POST)|(PUT)|(DELETE)"
@@ -19,6 +20,7 @@ const defaultMethods = "(GET)|(POST)|(PUT)|(DELETE)"
 type UserController struct {
 	a *auth.Authz
 	b biz.IBiz
+	pb.UnimplementedGoerServer
 }
 
 // NewUserController 创建一个 user controller.
@@ -73,27 +75,6 @@ func (ctrl *UserController) Get(c *gin.Context) {
 	}
 
 	core.WriteResponse(c, nil, user)
-}
-
-// List 返回用户列表，只有 root 用户才能获取用户列表.
-func (ctrl *UserController) List(c *gin.Context) {
-	log.C(c).Infow("List user function called")
-
-	var r v1.ListUserRequest
-	if err := c.ShouldBindQuery(&r); err != nil {
-		core.WriteResponse(c, errno.ErrBind, nil)
-
-		return
-	}
-
-	resp, err := ctrl.b.Users().List(c, r.Offset, r.Limit)
-	if err != nil {
-		core.WriteResponse(c, err, nil)
-
-		return
-	}
-
-	core.WriteResponse(c, nil, resp)
 }
 
 // Update 更新用户信息.
