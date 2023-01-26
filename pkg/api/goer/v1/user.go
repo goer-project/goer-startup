@@ -1,5 +1,7 @@
 package v1
 
+import "time"
+
 // LoginRequest 指定了 `POST /v1/login` 接口的请求参数.
 type LoginRequest struct {
 	Username string `json:"username" valid:"alphanum,required,stringlength(1|255)"`
@@ -31,12 +33,12 @@ type GetUserResponse UserInfo
 
 // UserInfo 指定了用户的详细信息.
 type UserInfo struct {
-	Username  string `json:"username"`
-	Nickname  string `json:"nickname"`
-	Email     string `json:"email"`
-	Phone     string `json:"phone"`
-	CreatedAt string `json:"createdAt"`
-	UpdatedAt string `json:"updatedAt"`
+	Username  string    `json:"username"`
+	Nickname  string    `json:"nickname"`
+	Email     string    `json:"email"`
+	Phone     string    `json:"phone"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 // ListUserRequest 指定了 `GET /v1/users` 接口的请求参数.

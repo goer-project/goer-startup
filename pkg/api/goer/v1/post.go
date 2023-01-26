@@ -1,5 +1,7 @@
 package v1
 
+import "time"
+
 // CreatePostRequest 指定了 `POST /v1/posts` 接口的请求参数.
 type CreatePostRequest struct {
 	Title   string `json:"title" valid:"required,stringlength(1|256)"`
@@ -16,12 +18,12 @@ type GetPostResponse PostInfo
 
 // PostInfo 指定了用户的详细信息.
 type PostInfo struct {
-	Username  string `json:"username,omitempty"`
-	PostID    string `json:"postID,omitempty"`
-	Title     string `json:"title"`
-	Content   string `json:"content"`
-	CreatedAt string `json:"createdAt"`
-	UpdatedAt string `json:"updatedAt"`
+	Username  string    `json:"username,omitempty"`
+	PostID    string    `json:"postID,omitempty"`
+	Title     string    `json:"title"`
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 // ListPostRequest 指定了 `GET /v1/posts` 接口的请求参数.

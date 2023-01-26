@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"time"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 
@@ -21,15 +20,13 @@ func (ctrl *UserController) ListUser(ctx context.Context, r *pb.ListUserRequest)
 
 	users := make([]*pb.UserInfo, 0, len(resp.Users))
 	for _, u := range resp.Users {
-		createdAt, _ := time.Parse("2006-01-02 15:04:05", u.CreatedAt)
-		updatedAt, _ := time.Parse("2006-01-02 15:04:05", u.UpdatedAt)
 		users = append(users, &pb.UserInfo{
 			Username:  u.Username,
 			Nickname:  u.Nickname,
 			Email:     u.Email,
 			Phone:     u.Phone,
-			CreatedAt: timestamppb.New(createdAt),
-			UpdatedAt: timestamppb.New(updatedAt),
+			CreatedAt: timestamppb.New(u.CreatedAt),
+			UpdatedAt: timestamppb.New(u.UpdatedAt),
 		})
 	}
 

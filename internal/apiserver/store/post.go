@@ -38,7 +38,7 @@ func (u *posts) Create(ctx context.Context, post *model.PostM) error {
 // Get 根据用户名查询指定 user 的数据库记录.
 func (u *posts) Get(ctx context.Context, username, postID string) (post *model.PostM, err error) {
 	err = u.db.Where("username = ?", username).
-		Where("postID = ?", postID).
+		Where("post_id = ?", postID).
 		First(&post).Error
 
 	return
@@ -64,7 +64,7 @@ func (u *posts) List(ctx context.Context, username string, offset, limit int) (c
 // Delete 根据 username 删除数据库 user 记录.
 func (u *posts) Delete(ctx context.Context, username string, postIDs []string) error {
 	err := u.db.Where("username = ?", username).
-		Where("postID in (?)", postIDs).
+		Where("post_id IN (?)", postIDs).
 		Delete(&model.PostM{}).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
