@@ -54,7 +54,6 @@ paths:
         - User
       summary: List users
       operationId: ListUsers
-        - application/json
       security:
         - api_key: [ ]
       parameters:
