@@ -79,7 +79,7 @@ func (b *userBiz) Login(ctx context.Context, r *v1.LoginRequest) (*v1.LoginRespo
 	}
 
 	// Generate token
-	t, err := token.Sign(r.Username)
+	t, err := token.Sign(user.Username)
 	if err != nil {
 		return nil, errno.ErrSignToken
 	}
