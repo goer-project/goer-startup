@@ -8,6 +8,7 @@ import (
 
 	"goer-startup/internal/apiserver"
 	"goer-startup/internal/goerctl/cmd/new"
+	"goer-startup/internal/goerctl/cmd/user"
 	"goer-startup/internal/goerctl/cmd/version"
 	"goer-startup/internal/goerctl/util/templates"
 	"goer-startup/internal/pkg/log"
@@ -39,9 +40,9 @@ func NewGoerCtlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 			},
 		},
 		{
-			Message:  "Advanced Commands:",
+			Message: "Advanced Commands:",
 			Commands: []*cobra.Command{
-				//
+				user.NewCmdUser(ioStreams),
 			},
 		},
 	}

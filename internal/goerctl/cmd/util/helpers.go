@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/marmotedu/errors"
+	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 
 	"goer-startup/internal/pkg/log"
@@ -170,4 +171,20 @@ func RequireNoArguments(c *cobra.Command, args []string) {
 	if len(args) > 0 {
 		CheckErr(UsageErrorf(c, "unknown command %q", strings.Join(args, " ")))
 	}
+}
+
+func TableWriterDefaultConfig(table *tablewriter.Table) *tablewriter.Table {
+	table.SetAutoWrapText(false)
+	table.SetAutoFormatHeaders(true)
+	table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
+	table.SetAlignment(tablewriter.ALIGN_LEFT)
+	table.SetCenterSeparator("")
+	table.SetColumnSeparator("")
+	table.SetRowSeparator("")
+	table.SetHeaderLine(false)
+	table.SetBorder(false)
+	table.SetTablePadding("  ") // pad with two space
+	table.SetNoWhiteSpace(true)
+
+	return table
 }
