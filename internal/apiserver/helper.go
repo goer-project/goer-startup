@@ -9,16 +9,16 @@ import (
 	"goer-startup/pkg/db"
 )
 
-var cfgFile string
+var CfgFile string
 
 const (
-	// defaultConfigName 指定了服务的默认配置文件名.
-	defaultConfigName = "apiserver.yaml"
+	// DefaultConfigName 指定了服务的默认配置文件名.
+	DefaultConfigName = "apiserver.yaml"
 )
 
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	genericapiserver.LoadConfig(cfgFile, defaultConfigName)
+// InitConfig reads in config file and ENV variables if set.
+func InitConfig() {
+	genericapiserver.LoadConfig(CfgFile, DefaultConfigName)
 }
 
 // logOptions 从 viper 中读取日志配置，构建 `*log.Options` 并返回.
@@ -33,8 +33,8 @@ func logOptions() *log.Options {
 	}
 }
 
-// initStore 读取 db 配置，创建 gorm.DB 实例，并初始化 store 层.
-func initStore() error {
+// InitStore 读取 db 配置，创建 gorm.DB 实例，并初始化 store 层.
+func InitStore() error {
 	dbOptions := &db.MySQLOptions{
 		Host:                  viper.GetString("mysql.host"),
 		Username:              viper.GetString("mysql.username"),

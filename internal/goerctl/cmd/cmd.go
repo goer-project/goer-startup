@@ -5,12 +5,12 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 
+	"goer-startup/internal/apiserver"
 	"goer-startup/internal/goerctl/cmd/new"
 	"goer-startup/internal/goerctl/cmd/version"
 	"goer-startup/internal/goerctl/util/templates"
-	genericapiserver "goer-startup/internal/pkg/server"
+	"goer-startup/internal/pkg/log"
 	"goer-startup/pkg/cli/genericclioptions"
 )
 
@@ -50,6 +50,9 @@ func NewGoerCtlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 	filters := []string{""}
 	templates.ActsAsRootCommand(cmds, filters, groups...)
 
+	// Config file
+	cmds.PersistentFlags().StringVarP(&apiserver.CfgFile, "config", "c", "", "The path to the configuration file. Empty string for no configuration file.")
+
 	// Add commands
 	cmds.AddCommand(version.NewCmdVersion(ioStreams))
 
@@ -58,7 +61,12 @@ func NewGoerCtlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	genericapiserver.LoadConfig(viper.GetString(genericclioptions.FlagGoerConfig), "goerctl")
+	apiserver.InitConfig()
+
+	// Init store
+	if err := apiserver.InitStore(); err != nil {
+		log.Fatalw(err.Error())
+	}
 }
 
 func runHelp(cmd *cobra.Command, args []string) {
