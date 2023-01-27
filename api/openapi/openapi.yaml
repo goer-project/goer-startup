@@ -126,14 +126,14 @@ paths:
         - User
       summary: Get user by user name
       description: ""
-      operationId: getUserByName
+      operationId: GetUser
       security:
         - api_key: [ ]
       parameters:
         - name: name
           in: path
           description: The name that needs to be fetched.
-          required: false
+          required: true
           schema:
             type: string
       responses:
@@ -201,7 +201,7 @@ paths:
         - User
       summary: Delete user
       description: This can only be done by the logged in user.
-      operationId: deleteUser
+      operationId: DeleteUser
       security:
         - api_key: [ ]
       parameters:
@@ -232,8 +232,8 @@ paths:
       tags:
         - User
       summary: Change password
-      description: Change password.
-      operationId: changePassword
+      description: Change password
+      operationId: ChangePassword
       security:
         - api_key: [ ]
       parameters:
@@ -273,7 +273,7 @@ paths:
       tags:
         - Post
       summary: List posts
-      operationId: listPosts
+      operationId: ListPosts
       security:
         - api_key: [ ]
       parameters:
@@ -312,7 +312,7 @@ paths:
         - Post
       summary: Create post
       description: This can only be done by the logged in user.
-      operationId: CreateUser
+      operationId: CreatePost
       security:
         - api_key: [ ]
       requestBody:
@@ -338,6 +338,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrResponse'
 
+    # Delete posts
+    delete:
+      tags:
+        - Post
+      summary: Delete posts
+      description: Delete posts
+      operationId: DeletePosts
+      security:
+        - api_key: [ ]
+      parameters:
+        - name: postID
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              example: post-22z9jl
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Request failed due to client-side problem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrResponse'
+        "500":
+          description: Request failed due to server-side problem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrResponse'
+
   /posts/{postID}:
     # Get post
     get:
@@ -345,7 +379,7 @@ paths:
         - Post
       summary: Get post
       description: ""
-      operationId: getPost
+      operationId: GetPost
       security:
         - api_key: [ ]
       parameters:
@@ -417,9 +451,9 @@ paths:
     delete:
       tags:
         - Post
-      summary: delete post
-      description: delete post
-      operationId: deletePost
+      summary: Delete post
+      description: Delete post
+      operationId: DeletePost
       security:
         - api_key: [ ]
       parameters:
@@ -472,7 +506,7 @@ components:
       properties:
         username:
           type: string
-          example: root
+          example: test
         password:
           type: string
           format: password
