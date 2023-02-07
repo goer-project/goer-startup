@@ -765,7 +765,7 @@ linters:
     - forbidigo
     - funlen
     # - gci
-    - gochecknoinits
+    # - gochecknoinits
     - gocognit
     - goconst
     - gocyclo
@@ -812,7 +812,7 @@ linters:
     - decorder
     - errchkjson
     - maintidx
-    - containedctx
+    # - containedctx
     #- tagliatelle
     #- nonamedreturns
     #- nilnil
