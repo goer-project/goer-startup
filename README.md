@@ -1,8 +1,22 @@
 # Go project startup
 
-开箱即用的 Go 项目开发脚手架
+# 基础组件
+
+| 类型     | 组件                                                        | 文档                                                                                        |
+|--------|-----------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| Web 框架 | [Gin](https://gin-gonic.com/zh-cn/docs)                   | [Doc](https://gorm.io/zh_CN/docs/index.html)                                              |
+| Mysql  | [Gorm](https://github.com/go-gorm/gorm)                   | [Doc](https://gorm.io/zh_CN/docs/index.html)                                              |
+| 配置     | [Viper](https://github.com/spf13/viper)                   | [Doc](https://gorm.io/zh_CN/docs/index.html)                                              |
+| 日志     | [Zap](https://github.com/uber-go/zap)                     | [Doc](https://gorm.io/zh_CN/docs/index.html)                                              |
+| Api 文档 | [OpenAPI 3.0 (Swagger)](https://swagger.io/specification) | [Editor](https://editor.swagger.io/),  [Swagger UI](https://swagger.io/tools/swagger-ui/) |
 
 # Usage
+
+## 生成 CA 证书
+
+```bash
+make ca
+```
 
 ## 复制配置文件
 
@@ -11,11 +25,7 @@ mkdir ~/.goer
 cp configs/*.yaml ~/.goer
 ```
 
-## 生成 CA 证书
-
-```bash
-make ca
-```
+> 注意修改配置文件中的数据库、ca 证书路径（支持相对路径和绝对路径）等
 
 ## 构建
 
@@ -80,6 +90,26 @@ curl localhost:8080/healthz
 }
 ```
 
+## API 文档
+
+### 方案一：使用 swagger ui docker 镜像
+
+自行安装 docker
+
+```bash
+make swagger
+```
+
+### 方案二：使用 go-swagger
+
+该方案会自动安装 [go-swagger](https://github.com/go-swagger/go-swagger) 插件
+
+```bash
+make swagger.serve
+```
+
+访问 http://localhost:65534
+
 # 开发规范
 
 ## 入口文件
@@ -141,12 +171,15 @@ internal
 Model 层 -> Store 层 -> Biz 层 -> Controller 层
 
 ### 错误码
+
 ```
 internal
 └── pkg
     └── errno
 ```
+
 示例：
+
 ```go
 var (
     // OK 代表请求成功.
@@ -159,6 +192,7 @@ var (
 ```
 
 ### 路由与中间件
+
 ```
 internal
 ├── apiserver
@@ -166,6 +200,7 @@ internal
 └── pkg
     └── middleware
 ```
+
 默认中间件可参考 ```internal/apiserver/run.go```，自定义中间件在 router 中使用：
 
 ```go
