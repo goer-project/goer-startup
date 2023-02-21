@@ -8,6 +8,7 @@
 | Mysql  | [Gorm](https://github.com/go-gorm/gorm)                   | [Doc](https://gorm.io/zh_CN/docs/index.html)                                              |
 | 配置     | [Viper](https://github.com/spf13/viper)                   | [Doc](https://gorm.io/zh_CN/docs/index.html)                                              |
 | 日志     | [Zap](https://github.com/uber-go/zap)                     | [Doc](https://gorm.io/zh_CN/docs/index.html)                                              |
+| 计划任务   | [Cron](https://github.com/robfig/cron)                    | [Doc](https://eddycjy.gitbook.io/golang/di-3-ke-gin/cron)                                 |
 | Api 文档 | [OpenAPI 3.0 (Swagger)](https://swagger.io/specification) | [Editor](https://editor.swagger.io/),  [Swagger UI](https://swagger.io/tools/swagger-ui/) |
 
 # Usage
@@ -208,3 +209,28 @@ internal
 v1 := g.Group("/v1")
 v1.Use(middleware.Authn(), middleware.Authz(authz))
 ```
+
+### 计划任务
+
+分布式 job 系统，代码位置 ```internal/watcher```
+
+```
+internal
+└── watcher
+    ├── app.go
+    ├── helper.go
+    ├── run.go
+    ├── watcher
+    |   ├── all
+    │   ├── user
+    │   └── registry.go
+    └── watcher.go
+```
+
+#### 示例计划任务
+
+```internal/watcher/watcher/user/user.go```
+
+#### 注册计划任务
+
+在 ```internal/watcher/watcher/all/all.go``` 中 ```import``` 任务即可
