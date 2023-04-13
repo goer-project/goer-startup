@@ -1,7 +1,6 @@
 package apiserver
 
 import (
-	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 
 	"goer-startup/internal/apiserver/controller/v1/post"
@@ -28,7 +27,7 @@ func installRouters(g *gin.Engine) error {
 	})
 
 	// 注册 pprof 路由
-	pprof.Register(g)
+	// pprof.Register(g)
 
 	// Authz
 	authz, err := auth.NewAuthz(store.S.DB())

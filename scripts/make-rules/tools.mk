@@ -47,6 +47,10 @@ install.protoc-gen-go:
 install.swagger:
 	@$(GO) install github.com/go-swagger/go-swagger/cmd/swagger@latest
 
+.PHONY: install.swag
+install.swag:
+	@$(GO) install github.com/swaggo/swag/cmd/swag@latest
+
 .PHONY: install.addlicense
 install.addlicense:
 	@$(GO) install github.com/marmotedu/addlicense@latest

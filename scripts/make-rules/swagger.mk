@@ -18,3 +18,7 @@ swagger.docker: ## 通过 docker 启动 swagger 在线文档（监听端口：65
        swaggerapi/swagger-ui
 	@echo open api docs: http://localhost:$(API_PORT)
 
+.PHONY: swag.init
+swag.init: tools.verify.swag ## 生成 swag 文档
+	@swag fmt -d ./ --exclude ./vendor
+	@swag init -g ./internal/apiserver/swag.go -o ./api/swagger/docs

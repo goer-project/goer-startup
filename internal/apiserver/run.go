@@ -37,6 +37,11 @@ func run() error {
 
 	g.Use(mws...)
 
+	// Swagger
+	if viper.GetBool("feature.api-doc") {
+		MapSwagRoutes(g)
+	}
+
 	if err := installRouters(g); err != nil {
 		return err
 	}

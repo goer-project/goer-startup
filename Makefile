@@ -109,6 +109,10 @@ format:
 swagger:
 	@$(MAKE) swagger.docker
 
+.PHONY: swag
+swag:
+	@$(MAKE) swag.init
+
 .PHONY: tidy
 tidy:
 	@$(MAKE) go.tidy
