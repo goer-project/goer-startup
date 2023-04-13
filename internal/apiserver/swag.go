@@ -20,7 +20,7 @@ func MapSwagRoutes(r *gin.Engine) {
 	// swagger info
 	docs.SwaggerInfo.Title = "API Docs"
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:8080"
+	// docs.SwaggerInfo.Host = "localhost:8080"
 	docs.SwaggerInfo.BasePath = "/"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
