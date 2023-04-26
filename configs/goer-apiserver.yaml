@@ -3,20 +3,7 @@
 # RESTful Server
 server:
   mode: debug # server mode: release, debug, test，默认 release
-  healthz: true # 是否开启健康检查，如果开启会安装 /healthz 路由，默认 true
-  middlewares: recovery,logger,secure,nocache,cors,dump # 加载的 gin 中间件列表，多个中间件，逗号(,)隔开
-  max-ping-count: 3 # http 服务启动后，自检尝试次数，默认 3
   addr: :8080
-
-# HTTPS 配置
-tls:
-  addr: :8443 # HTTPS 服务器监听地址
-  cert: ./_output/cert/server.crt # 证书
-  key: ./_output/cert/server.key # 证书 Key 文件
-
-# GRPC Serve
-grpc:
-  addr: :8090 # GRPC 服务器监听地址
 
 # MySQL
 mysql:
@@ -64,6 +51,4 @@ log:
   error-output-paths: [ ./_output/tmp/goer-apiserver.error.log, stdout ] # zap内部(非业务)错误日志输出路径，多个输出，逗号分开
 
 feature:
-  enable-metrics: true # 开启 metrics, router:  /metrics
-  profiling: true # 开启性能分析, 可以通过 <host>:<port>/debug/pprof/地址查看程序栈、线程等系统信息，默认值为 true
   api-doc: true # 是否开启 swagger api docs

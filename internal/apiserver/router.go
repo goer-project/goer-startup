@@ -26,9 +26,6 @@ func installRouters(g *gin.Engine) error {
 		core.WriteResponse(c, nil, map[string]string{"status": "ok"})
 	})
 
-	// 注册 pprof 路由
-	// pprof.Register(g)
-
 	// Authz
 	authz, err := auth.NewAuthz(store.S.DB())
 	if err != nil {
