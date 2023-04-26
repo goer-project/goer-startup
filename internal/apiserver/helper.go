@@ -13,7 +13,7 @@ var CfgFile string
 
 const (
 	// DefaultConfigName 指定了服务的默认配置文件名.
-	DefaultConfigName = "apiserver.yaml"
+	DefaultConfigName = "goer-apiserver.yaml"
 )
 
 // InitConfig reads in config file and ENV variables if set.
@@ -21,9 +21,9 @@ func InitConfig() {
 	genericapiserver.LoadConfig(CfgFile, DefaultConfigName)
 }
 
-// logOptions 从 viper 中读取日志配置，构建 `*log.Options` 并返回.
+// LogOptions 从 viper 中读取日志配置，构建 `*log.Options` 并返回.
 // 注意：`viper.Get<Type>()` 中 key 的名字需要使用 `.` 分割，以跟 YAML 中保持相同的缩进.
-func logOptions() *log.Options {
+func LogOptions() *log.Options {
 	return &log.Options{
 		DisableCaller:     viper.GetBool("log.disable-caller"),
 		DisableStacktrace: viper.GetBool("log.disable-stacktrace"),

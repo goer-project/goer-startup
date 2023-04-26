@@ -21,7 +21,7 @@ func NewAppCommand() *cobra.Command {
 			verflag.PrintAndExitIfRequested()
 
 			// 初始化日志
-			log.Init(logOptions())
+			log.Init(LogOptions())
 			defer log.Sync() // Sync 将缓存中的日志刷新到磁盘文件中
 
 			return run()
