@@ -6,13 +6,14 @@ import (
 	"syscall"
 	"time"
 
+	"goer-startup/internal/apiserver"
 	"goer-startup/internal/pkg/log"
 )
 
 // run 函数是实际的业务代码入口函数.
 func run() error {
 	// 初始化 store 层
-	if err := InitStore(); err != nil {
+	if err := apiserver.InitStore(); err != nil {
 		return err
 	}
 

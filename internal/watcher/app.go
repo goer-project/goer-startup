@@ -5,6 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"goer-startup/internal/apiserver"
 	"goer-startup/internal/pkg/log"
 	"goer-startup/pkg/version/verflag"
 )
@@ -20,7 +21,7 @@ func NewWatcherCommand() *cobra.Command {
 			verflag.PrintAndExitIfRequested()
 
 			// 初始化日志
-			log.Init(logOptions())
+			log.Init(apiserver.LogOptions())
 			defer log.Sync() // Sync 将缓存中的日志刷新到磁盘文件中
 
 			return run()
@@ -38,12 +39,12 @@ func NewWatcherCommand() *cobra.Command {
 	}
 
 	// 以下设置，使得 InitConfig 函数在每个命令运行时都会被调用以读取配置
-	cobra.OnInitialize(InitConfig)
+	cobra.OnInitialize(apiserver.InitConfig)
 
 	// 在这里您将定义标志和配置设置。
 
 	// Cobra 支持持久性标志(PersistentFlag)，该标志可用于它所分配的命令以及该命令下的每个子命令
-	cmd.PersistentFlags().StringVarP(&CfgFile, "config", "c", "", "The path to the configuration file. Empty string for no configuration file.")
+	cmd.PersistentFlags().StringVarP(&apiserver.CfgFile, "config", "c", "", "The path to the configuration file. Empty string for no configuration file.")
 
 	// Cobra 也支持本地标志，本地标志只能在其所绑定的命令上使用
 	cmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")

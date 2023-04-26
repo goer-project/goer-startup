@@ -1,6 +1,10 @@
 package all
 
-// nolint: golint
 import (
-	_ "goer-startup/internal/watcher/watcher/user"
+	"goer-startup/internal/watcher/watcher"
+	"goer-startup/internal/watcher/watcher/user"
 )
+
+func init() {
+	watcher.Register("user", &user.UserWatcher{})
+}
