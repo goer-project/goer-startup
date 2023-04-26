@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"goer-startup/internal/apiserver"
+	"goer-startup/internal/apiserver/config"
 	"goer-startup/internal/pkg/log"
 	"goer-startup/pkg/version/verflag"
 )
@@ -21,7 +22,7 @@ func NewWatcherCommand() *cobra.Command {
 			verflag.PrintAndExitIfRequested()
 
 			// 初始化日志
-			log.Init(apiserver.LogOptions())
+			log.Init(config.Cfg.Log)
 			defer log.Sync() // Sync 将缓存中的日志刷新到磁盘文件中
 
 			return run()

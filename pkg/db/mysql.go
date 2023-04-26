@@ -11,15 +11,14 @@ import (
 
 // MySQLOptions defines options for mysql database.
 type MySQLOptions struct {
-	Host                  string
-	Username              string
-	Password              string
-	Database              string
-	MaxIdleConnections    int
-	MaxOpenConnections    int
-	MaxConnectionLifeTime time.Duration
-	LogLevel              int
-	// Logger                logger.Interface
+	Host                  string        `mapstructure:"host" json:"host" yaml:"host"`
+	Username              string        `mapstructure:"username" json:"username" yaml:"username"`
+	Password              string        `mapstructure:"password" json:"-" yaml:"password"`
+	Database              string        `mapstructure:"database" json:"database" yaml:"database"`
+	MaxIdleConnections    int           `mapstructure:"max-idle-connections" json:"max_idle_connections" yaml:"max-idle-connections"`
+	MaxOpenConnections    int           `mapstructure:"max-open-connections" json:"max_open_connections" yaml:"max-open-connections"`
+	MaxConnectionLifeTime time.Duration `mapstructure:"max-connection-life-time" json:"max_connection_life_time" yaml:"max-connection-life-time"`
+	LogLevel              int           `mapstructure:"log-level" json:"log_level" yaml:"log-level"`
 }
 
 // DSN returns mysql dsn.

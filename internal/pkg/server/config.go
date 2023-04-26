@@ -25,7 +25,7 @@ var (
 )
 
 // LoadConfig reads in config file and ENV variables if set.
-func LoadConfig(cfg string, defaultName string) {
+func LoadConfig(cfg string, defaultName string, data interface{}) {
 	if cfg != "" {
 		viper.SetConfigFile(cfg)
 	} else {
@@ -51,6 +51,11 @@ func LoadConfig(cfg string, defaultName string) {
 		log.Errorw("Failed to read viper configuration file", "err", err)
 	}
 
+	if err := viper.Unmarshal(data); err != nil {
+		log.Errorw("config unmarshal err", "err", err)
+	}
+
 	// Print using config file.
 	log.Debugw("Using config file", "file", viper.ConfigFileUsed())
+
 }
