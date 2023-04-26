@@ -57,5 +57,4 @@ func LoadConfig(cfg string, defaultName string, data interface{}) {
 
 	// Print using config file.
 	log.Debugw("Using config file", "file", viper.ConfigFileUsed())
-
 }
