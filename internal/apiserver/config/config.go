@@ -38,5 +38,5 @@ type Redis struct {
 	Host     string `mapstructure:"host" json:"host" yaml:"host"`
 	Username string `mapstructure:"username" json:"username" yaml:"username"`
 	Password string `mapstructure:"password" json:"-" yaml:"password"`
-	Database string `mapstructure:"database" json:"database" yaml:"database"`
+	Database int    `mapstructure:"database" json:"database" yaml:"database"`
 }

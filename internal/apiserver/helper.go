@@ -1,6 +1,9 @@
 package apiserver
 
 import (
+	"github.com/goer-project/goer-core/redis"
+
+	"goer-startup/internal/apiserver/cache"
 	"goer-startup/internal/apiserver/config"
 	"goer-startup/internal/apiserver/store"
 	genericapiserver "goer-startup/internal/pkg/server"
@@ -27,6 +30,17 @@ func InitStore() error {
 	}
 
 	_ = store.NewStore(ins)
+
+	return nil
+}
+
+func InitCache() error {
+	r, err := redis.NewClient(config.Cfg.Redis.Host, config.Cfg.Redis.Password, config.Cfg.Redis.Database)
+	if err != nil {
+		return err
+	}
+
+	cache.NewCache(r)
 
 	return nil
 }
