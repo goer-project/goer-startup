@@ -5,11 +5,12 @@ import (
 
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
+
+	"goer-startup/internal/apiserver/config"
 )
 
 func startInsecureServer(g *gin.Engine) error {
-	s := endless.NewServer(viper.GetString("server.addr"), g)
+	s := endless.NewServer(config.Cfg.Server.Addr, g)
 	s.ReadHeaderTimeout = 20 * time.Second
 	s.WriteTimeout = 20 * time.Second
 	s.MaxHeaderBytes = 1 << 20

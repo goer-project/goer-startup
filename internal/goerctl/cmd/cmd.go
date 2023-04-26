@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"goer-startup/internal/apiserver"
-	"goer-startup/internal/goerctl/cmd/new"
 	"goer-startup/internal/goerctl/cmd/user"
 	"goer-startup/internal/goerctl/cmd/version"
 	"goer-startup/internal/goerctl/util/templates"
@@ -34,10 +33,8 @@ func NewGoerCtlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 
 	groups := templates.CommandGroups{
 		{
-			Message: "Basic Commands:",
-			Commands: []*cobra.Command{
-				new.NewCmdNew(ioStreams),
-			},
+			Message:  "Basic Commands:",
+			Commands: []*cobra.Command{},
 		},
 		{
 			Message: "Advanced Commands:",

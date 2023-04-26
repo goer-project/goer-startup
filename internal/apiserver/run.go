@@ -2,8 +2,8 @@ package apiserver
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 
+	"goer-startup/internal/apiserver/config"
 	"goer-startup/internal/pkg/known"
 	"goer-startup/internal/pkg/middleware"
 	"goer-startup/pkg/token"
@@ -17,10 +17,10 @@ func run() error {
 	}
 
 	// 设置 token 包的签发密钥，用于 token 包 token 的签发和解析
-	token.Init(viper.GetString("jwt-secret"), known.XUsernameKey)
+	token.Init(config.Cfg.JWT.Key, known.XUsernameKey)
 
 	// 设置 Gin 模式
-	gin.SetMode(viper.GetString("server.mode"))
+	gin.SetMode(config.Cfg.Server.Mode)
 
 	// 创建 Gin 引擎
 	g := gin.New()
@@ -31,7 +31,7 @@ func run() error {
 	g.Use(mws...)
 
 	// Swagger
-	if viper.GetBool("feature.api-doc") {
+	if config.Cfg.Feature.ApiDoc {
 		MapSwagRoutes(g)
 	}
 

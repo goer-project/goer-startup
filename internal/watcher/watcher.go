@@ -8,8 +8,8 @@ import (
 	"github.com/go-redsync/redsync/v4"
 	"github.com/go-redsync/redsync/v4/redis/goredis/v8"
 	"github.com/robfig/cron/v3"
-	"github.com/spf13/viper"
 
+	"goer-startup/internal/apiserver/config"
 	"goer-startup/internal/pkg/log"
 	"goer-startup/internal/watcher/watcher"
 
@@ -24,9 +24,8 @@ type watchJob struct {
 
 func newWatchJob() *watchJob {
 	client := goredislib.NewClient(&goredislib.Options{
-		Addr:     viper.GetString("redis.host"),
-		Username: viper.GetString("redis.username"),
-		Password: viper.GetString("redis.password"),
+		Addr:     config.Cfg.Redis.Host,
+		Password: config.Cfg.Redis.Password,
 	})
 
 	rs := redsync.New(goredis.NewPool(client))
