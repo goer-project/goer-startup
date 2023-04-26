@@ -4,7 +4,6 @@ import (
 	"goer-startup/internal/apiserver/biz"
 	"goer-startup/internal/apiserver/store"
 	"goer-startup/pkg/auth"
-	pb "goer-startup/pkg/proto/goer/v1"
 )
 
 const defaultMethods = "(GET)|(POST)|(PUT)|(DELETE)"
@@ -13,7 +12,6 @@ const defaultMethods = "(GET)|(POST)|(PUT)|(DELETE)"
 type UserController struct {
 	a *auth.Authz
 	b biz.IBiz
-	pb.UnimplementedGoerServer
 }
 
 // NewUserController 创建一个 user controller.
